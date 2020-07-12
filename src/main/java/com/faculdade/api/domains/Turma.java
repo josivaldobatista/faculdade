@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -23,6 +25,7 @@ public class Turma implements Serializable {
     @Column(name = "numero_turma")
     private String numeroTurma;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_inicio")
     private Date dataInicio;
 
