@@ -19,7 +19,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
