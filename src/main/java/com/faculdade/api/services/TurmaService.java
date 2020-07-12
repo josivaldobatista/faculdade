@@ -1,6 +1,7 @@
 package com.faculdade.api.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.faculdade.api.domains.Turma;
 import com.faculdade.api.repositories.TurmaRepository;
@@ -16,6 +17,11 @@ public class TurmaService {
 
     public List<Turma> findAll() {
         return repo.findAll();
+    }
+
+    public Turma findById(Integer id) {
+        Optional<Turma> obj = repo.findById(id);
+        return obj.orElse(null);
     }
 
 }
