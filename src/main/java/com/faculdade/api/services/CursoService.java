@@ -39,21 +39,25 @@ public class CursoService {
         return repo.save(newObj);
     }
 
-    public Curso fromDTO(CursoDTO objDto) {
-        return new Curso(objDto.getId(), objDto.getNome(), objDto.getCargaHoraria(), 
-            objDto.getNotaMinima());
-    }
-
-	public void updateNome(Integer id, String nome) {
+    public void updateNome(Integer id, String nome) {
         Curso obj = findById(id);
         obj.setNome(nome);
         repo.save(obj);
-	}
+    }
 
-    /* public void updateData(Curso newObj, Curso obj) {
-        newObj.setNome(obj.getNome());
-        newObj.setCargaHoraria(obj.getCargaHoraria());
-        newObj.setNotaMinima(obj.getNotaMinima());
-    } */
+    public void delete(Integer id) {
+        findById(id);
+        repo.deleteById(id);
+    }
+
+    public Curso fromDTO(CursoDTO objDto) {
+        return new Curso(objDto.getId(), objDto.getNome(), objDto.getCargaHoraria(), objDto.getNotaMinima());
+    }
+
+    /*
+     * public void updateData(Curso newObj, Curso obj) {
+     * newObj.setNome(obj.getNome()); newObj.setCargaHoraria(obj.getCargaHoraria());
+     * newObj.setNotaMinima(obj.getNotaMinima()); }
+     */
 
 }
