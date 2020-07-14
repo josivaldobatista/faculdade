@@ -40,8 +40,15 @@ public class CursoService {
     }
 
     public Curso fromDTO(CursoDTO objDto) {
-        return new Curso(objDto.getId(), objDto.getNome(), objDto.getCargaHoraria(), objDto.getNotaMinima());
+        return new Curso(objDto.getId(), objDto.getNome(), objDto.getCargaHoraria(), 
+            objDto.getNotaMinima());
     }
+
+	public void updateNome(Integer id, String nome) {
+        Curso obj = findById(id);
+        obj.setNome(nome);
+        repo.save(obj);
+	}
 
     /* public void updateData(Curso newObj, Curso obj) {
         newObj.setNome(obj.getNome());
