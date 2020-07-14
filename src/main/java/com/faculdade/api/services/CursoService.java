@@ -1,6 +1,7 @@
 package com.faculdade.api.services;
 
 import com.faculdade.api.domains.Curso;
+import com.faculdade.api.dto.CursoDTO;
 import com.faculdade.api.repositories.CursoRepository;
 import com.faculdade.api.services.exceptions.ObjectNotFoundException;
 
@@ -29,5 +30,9 @@ public class CursoService {
     public Curso insert(Curso obj) {
         obj.setId(null);
         return repo.save(obj);
+    }
+
+    public Curso fromDTO(CursoDTO objDto) {
+        return new Curso(objDto.getId(), objDto.getNome(), objDto.getCargaHoraria(), objDto.getNotaMinima());
     }
 }
