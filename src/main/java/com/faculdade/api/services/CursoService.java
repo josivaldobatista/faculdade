@@ -2,6 +2,8 @@ package com.faculdade.api.services;
 
 import com.faculdade.api.domains.Curso;
 import com.faculdade.api.repositories.CursoRepository;
+import com.faculdade.api.services.exceptions.ObjectNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,12 @@ public class CursoService {
 
     public Curso findById(Integer id) {
         Optional<Curso> obj = repo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! ID: " + id + ", Tipo: " + Curso.class.getName()));
     }
 
     public Curso insert(Curso obj) {
         obj.setId(null);
         return repo.save(obj);
     }
-    
 }
