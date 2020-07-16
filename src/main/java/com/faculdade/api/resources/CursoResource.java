@@ -10,6 +10,7 @@ import com.faculdade.api.dto.CursoDTO;
 import com.faculdade.api.services.CursoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -58,6 +60,7 @@ public class CursoResource {
     }
 
     // Vou modificar esse método no futuro.
+    // Update apenas do nome do Curso.
     @PutMapping("/{id}/nome")
     public ResponseEntity<Void> updateNome(@PathVariable Integer id, @RequestBody String nome) {
         service.updateNome(id, nome);
@@ -68,6 +71,17 @@ public class CursoResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CursoDTO>> findPage(
+        @RequestParam(value = "page", defaultValue = "0") Integer page,
+        @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+        @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+        @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy) {
+            Page<Curso> list = service.findPage(page, linesPerPage, direction, orderBy);
+            Page<CursoDTO> listDto = list.map(obj -> new CursoDTO(obj));
+            return ResponseEntity.ok().body(listDto);
     }
 
 }

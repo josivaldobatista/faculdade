@@ -10,6 +10,9 @@ import com.faculdade.api.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,7 +37,7 @@ public class CursoService {
     }
 
     public Curso update(Curso obj) {
-        Curso newObj = findById(obj.getId());
+        Curso newObj = findById(obj.getId()); // Verificando se o objeto existe.
         BeanUtils.copyProperties(obj, newObj, "id");
         return repo.save(newObj);
     }
@@ -52,6 +55,11 @@ public class CursoService {
 
     public Curso fromDTO(CursoDTO objDto) {
         return new Curso(objDto.getId(), objDto.getNome(), objDto.getCargaHoraria(), objDto.getNotaMinima());
+    }
+
+    public Page<Curso> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        return repo.findAll(pageRequest);
     }
 
     /*

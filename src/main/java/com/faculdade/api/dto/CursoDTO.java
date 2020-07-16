@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.faculdade.api.domains.Curso;
+
 import org.hibernate.validator.constraints.Length;
 
 public class CursoDTO  implements Serializable {
@@ -25,11 +27,11 @@ public class CursoDTO  implements Serializable {
     public CursoDTO() {
     }
 
-    public CursoDTO(Integer id, String nome, Integer cargaHoraria, Double notaMinima) {
-        this.id = id;
-        this.nome = nome;
-        this.cargaHoraria = cargaHoraria;
-        this.notaMinima = notaMinima;
+    public CursoDTO(Curso obj) {
+        id = obj.getId();
+        nome = obj.getNome();
+        cargaHoraria = obj.getCargaHoraria();
+        notaMinima = obj.getNotaMinima();
     }
 
     public Integer getId() {
