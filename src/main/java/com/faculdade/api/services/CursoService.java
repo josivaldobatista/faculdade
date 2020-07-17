@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CursoService {
@@ -31,9 +32,11 @@ public class CursoService {
                 "Objeto não encontrado! ID: " + id + ", Tipo: " + Curso.class.getName()));
     }
 
+    @Transactional
     public Curso insert(Curso obj) {
         obj.setId(null);
-        return repo.save(obj);
+        obj = repo.save(obj);
+        return obj;
     }
 
     public Curso update(Curso obj) {
